@@ -1,0 +1,35 @@
+<form action="/empleados/add" method="POST">
+    <labell for="cuadrilla">Ingrese RDA</labell>
+    <input type="text" name="rda" value="{{codigoInsumo.codigoInsumo}}" placeholder="insumo">
+    <labell for="cuadrilla">Ingrese nombre del empleado</labell>
+    <input type="text" name="rda" value="{{codigoInsumo.codigoInsumo}}" placeholder="insumo">
+    <labell for="cuadrilla">Ingrese sitio asignado</labell>
+    <input type="text" name="insumo" value="{{codigoInsumo.codigoInsumo}}" placeholder="insumo">
+    <labell for="cuadrilla">Ingrese cuadrilla asignada</labell>
+    <input type="text" name="insumo" value="{{codigoInsumo.codigoInsumo}}" placeholder="insumo">
+    <button>Guardar</button>
+</form>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>N°</th>
+            <th>RDA</th>
+            <th>Empleado</th>
+            <th>Sitio</th>
+            <th>Cuadrilla</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+       {{#each insumos}}
+       <tr>
+        <td>{{@index}}</td>
+        <td>{{rda}}</td>
+        <td>{{nombreEmpleado}}</td>
+        <td>{{sitio}}</td>
+        <td>{{cuadrilla}}</td>
+        {{!-- <td><a href="/edit-cuadrilla/{{_id}}">Editar</a></td> --}}
+       </tr>
+       {{/each}}
+    </tbody>
+</table>

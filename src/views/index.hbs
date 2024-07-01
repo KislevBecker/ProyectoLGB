@@ -1,0 +1,257 @@
+<form action="/tasks/add" method="POST">
+<div class="card">
+    <div class="card-header">
+        <h3>Datos de quien ingresa la requisa</h3>
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 mb-1">
+                <labell for="cuadrilla">Seleccione cuadrilla</labell>
+                <select class="form-control" name="cuadrilla">
+                    <option>seleccione</option>
+                 {{#each cuadrillas}}
+                    <option >{{cuadrilla}}</option>
+                   {{/each}}
+                </select>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 mb-1">
+                <labell for="cuadrilla">Quién ingresa la información</labell>
+                <input class="form-control" type="text" name="empleado" placeholder="Ingrese su nombre completo">
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 mb-1">
+                <labell for="cuadrilla">Ingrese el sitio</labell>
+                <input class="form-control" type="text" name="sitio" placeholder="Ingrese el nombre del sitio">
+                {{!-- <select class="form-control" name="sitio">
+                    <option>seleccione</option>
+                           {{#each sitios}}
+                    <option >{{sitio}}</option>
+                   {{/each}}
+                </select> --}}
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 mb-1">
+                <labell for="cuadrilla">Ingrese RDA</labell>
+                <input class="form-control" type="text" name="rda" placeholder="Ingrese el RDA">
+            </div>
+        </div>
+    </div>
+</div>
+<div class="card">
+    <div class="card-header">
+        <h3>Insumos a reportar</h3>
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+                <label for="insumos">Seleccione un insumo:</label>
+                <select name="insumos" id="insumos" class="form-control">
+                    <option>seleccione</option>
+                    {{#each insumosI}}
+                    <option value="{{codigo}}-{{insumo}}">{{codigo}}-{{insumo}}</option>
+                    {{/each}}
+                </select>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+                <label for="insumos">Seleccione la cantidad:</label>
+                <select name="cantidad" id="cantidad" class="form-control">
+                    <option>seleccione</option>
+                        {{#each cantidades}}
+                    <option >{{cantidad}}</option>
+                   {{/each}}
+                </select>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+                <label for="insumos">Seleccione unidad:</label>
+                <select id="unidad" name="unidad" class="form-control">
+                      <option>seleccione</option>
+                           {{#each unidades}}
+                    <option >{{unidad}}</option>
+                   {{/each}}
+                </select>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+                <label for="cuadrilla"></label>
+                <button type="button" id="add-inputs-btn" class="btn btn-primary mt-4">Agregar otro insumo</button>
+            </div>
+        </div>
+        <div class="row mt-3"  id="inputs-container">   
+<p>Listado de insumos agregados</p>
+        </div>
+    </div>
+</div>
+    <button class="btn btn-warning mt-4 mb-5">Guardar</button>
+</form>
+
+<!-- --------------------------------------BOOTSTRAP JS----------------------------------------------------------- -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
+
+
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.js"></script>
+
+<script src="https://cdn.datatables.net/buttons/1.6.2/js/dataTables.buttons.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.6.2/js/buttons.bootstrap4.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.6.2/js/buttons.html5.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.6.2/js/buttons.print.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.6.2/js/buttons.colVis.min.js"></script>
+
+<script>
+  $(document).ready(function () {
+      $('#table_id').DataTable({
+          "language": {
+              "lengthMenu": "Mostrar _MENU_ registros por página",
+              "zeroRecords": "Datos no encontrados",
+              "info": "Mostrando Página _PAGE_ de _PAGES_",
+              "infoEmpty": "No hay registros disponibles",
+              "infoFiltered": "(Filtrado de _MAX_ registros totales)",
+              "search": "Buscar",
+              "sInfoThousands": ",",
+              "sLoadingRecords": "Cargando...",
+              "oPaginate": {
+                  "sFirst": "Primero",
+                  "sLast": "Último",
+                  "sNext": "Siguiente",
+                  "sPrevious": "Anterior"
+              },
+          },
+          "dom": 'Bfrtip',
+          //para que muestre el length menu                 "dom": 'Blfrtip',
+          "buttons": [
+              {
+                  extend: 'excel',
+                  className: 'btn btn-default rounded-0',
+                  text: '<i class="far fa-file-excel"></i> Exportar a excel',
+                  title: 'Planilla Semanal equipo de arrastre',
+                  exportOptions: {
+                      columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+                  }
+              },
+              {
+                  extend: 'pdf',
+                  className: 'btn btn-default rounded-0',
+                  text: '<i class="far fa-file-pdf" title= "Guardar como PDF"></i> Pdf',
+                  title: 'Planilla Semanal equipo de arrastre',
+                  orientation: 'landscape',
+                  pageSize: 'LEGAL',
+                  exportOptions: {
+                      columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+                  }
+              },
+              {
+                  extend: 'csv',
+                  className: 'btn btn-default rounded-0',
+                  text: '<i class="fas fa-file-csv" title= "Guardar como CSV"></i> CSV',
+                  title: 'Planilla Semanal equipo de arrastre',
+                  exportOptions: {
+                      columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+                  }
+              },
+              {
+                  extend: 'print',
+                  className: 'btn btn-default rounded-0',
+                  text: '<i class="fas fa-print"></i> Imprimir tabla',
+                  title: 'Planilla Semanal equipo de arrastre',
+                  exportOptions: {
+                      columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+                  }
+              }
+          ]
+      });
+  });
+
+  $( document ).ready(function() {
+    $( ".btn_izq" ).click(function() {
+        $('#bloque_enlaces').toggle(); 
+    });
+});
+
+
+document.addEventListener('DOMContentLoaded', function() {
+    const addInputsBtn = document.getElementById('add-inputs-btn');
+    const inputsContainer = document.getElementById('inputs-container');
+    const insumosDropdown = document.getElementById('insumos');
+    const unidadDropdown = document.getElementById('unidad');
+    const cantidadDropdown = document.getElementById('cantidad');
+    const form = document.querySelector('form');
+
+    let inputsData = []; // Array para almacenar datos de inputs dinámicos
+
+    addInputsBtn.addEventListener('click', function() {
+        // Obtener valores seleccionados de los dropdowns
+        const insumoSeleccionado = insumosDropdown.value;
+        const unidadSeleccionada = unidadDropdown.value;
+        const cantidadSeleccionada = cantidadDropdown.value;
+
+        // Crear objeto para los datos del nuevo input
+        const newInputData = {
+            insumo: insumoSeleccionado,
+            unidad: unidadSeleccionada,
+            cantidad: cantidadSeleccionada
+        };
+
+        // Agregar el nuevo objeto al array de inputsData
+        inputsData.push(newInputData);
+
+        // Limpiar el contenedor de inputs previos y mostrar los datos actuales
+        renderInputsData();
+    });
+
+    // Función para renderizar los datos actuales de inputsData en el contenedor
+    function renderInputsData() {
+        inputsContainer.innerHTML = '';
+        inputsData.forEach((data, index) => {
+            const inputGroup = document.createElement('div');
+            inputGroup.classList.add('input-group');
+
+            const input = document.createElement('input');
+            input.setAttribute('type', 'text');
+            input.setAttribute('name', `input-${index}`);
+            {{!-- input.value = `${data.insumo} | ${data.unidad} | ${data.cantidad}`; --}}
+            input.value = `${data.insumo} | ${data.cantidad} | ${data.unidad}`;
+            input.classList.add('form-control');
+
+            inputGroup.appendChild(input);
+            inputsContainer.appendChild(inputGroup);
+        });
+    }
+
+    // Evento para manejar el envío del formulario
+    form.addEventListener('submit', async function(event) {
+        event.preventDefault(); // Evitar el envío normal del formulario
+
+        // Obtener otros datos del formulario si es necesario
+        const formData = new FormData(form);
+        const formDataObj = Object.fromEntries(formData.entries());
+
+        // Agregar inputsData al objeto formDataObj
+        formDataObj.inputsData = inputsData;
+
+        try {
+            
+            // Enviar los datos al servidor usando fetch
+            const response = await fetch('/tasks/add', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(formDataObj)
+            });
+
+            if (!response.ok) {
+                throw new Error('Error al guardar en el servidor');
+            }
+
+            const responseData = await response.json();
+            console.log('Respuesta del servidor:', responseData);
+            alert('Tarea guardada exitosamente');
+                // Redirigir al usuario a donde sea necesario
+                window.location.href = '/'; // Reemplaza con la ruta correcta
+        } catch (error) {
+            console.error('Error al enviar datos al servidor:', error);
+            // Manejar el error como sea necesario (por ejemplo, mostrar mensaje de error)
+        }
+    });
+});
+</script>

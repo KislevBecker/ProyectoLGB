@@ -1,0 +1,34 @@
+<div class="card">
+    <div class="card-body">
+<form action="/insumos/add" method="POST">
+    <labell for="cuadrilla">Ingrese código</labell>
+    <input type="text" class="form-control mb-2" name="codigo" value="{{codigoInsumo.codigoInsumo}}" placeholder="insumo">
+    <labell for="cuadrilla">Ingrese descripcion</labell>
+    <input type="text" class="form-control mb-2" name="insumo" value="{{codigoInsumo.codigoInsumo}}" placeholder="insumo">
+    
+    <button class="btn btn-primary">Guardar</button>
+</form>
+    </div>
+</div>
+
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>N°</th>
+            <th>Código</th>
+            <th>Insumos</th>
+            {{!-- <th></th> --}}
+        </tr>
+    </thead>
+    <tbody>
+       {{#each insumos}}
+       <tr>
+        <td>{{@index}}</td>
+        <td>{{codigo}}</td>
+        <td>{{insumo}}</td>
+        {{!-- <td><a href="/edit-cuadrilla/{{_id}}">Editar</a></td> --}}
+       </tr>
+       {{/each}}
+    </tbody>
+</table>
