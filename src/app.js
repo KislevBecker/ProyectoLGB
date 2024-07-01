@@ -9,7 +9,7 @@ import bodyParser from 'body-parser';
 const app = express();
 
 // Configura Express para servir archivos estáticos desde el directorio 'public'
-app.use(express.static('public'));
+app.use(express.static(path.join(__dirname, 'public')));
 
 app.set('views', path.join(__dirname, "views"));
 
