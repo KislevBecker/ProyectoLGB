@@ -60,7 +60,7 @@ router.get("/sitios", async (req, res) => {
 router.post("/sitios/add", async (req, res) => {
   const sitios = Sitios(req.body);
   await sitios.save();
-  res.redirect("/");
+  res.redirect("/sitios");
 });
 
 router.get("/insumos", renderInsumos);
