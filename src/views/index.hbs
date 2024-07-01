@@ -247,8 +247,11 @@ document.addEventListener('DOMContentLoaded', function() {
             const responseData = await response.json();
             console.log('Respuesta del servidor:', responseData);
             alert('Tarea guardada exitosamente');
-                // Redirigir al usuario a donde sea necesario
-                 location.reload();
+            
+            // Esperar un segundo antes de recargar la página
+            setTimeout(() => {
+                location.reload();
+            }, 1000);
         } catch (error) {
             console.error('Error al enviar datos al servidor:', error);
             // Manejar el error como sea necesario (por ejemplo, mostrar mensaje de error)
