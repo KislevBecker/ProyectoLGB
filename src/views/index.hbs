@@ -1,3 +1,40 @@
+<style>
+        /* Estilos básicos para la lista desplegable */
+        .dropdown {
+            position: relative;
+            display: inline-block;
+            width: 100%;
+        }
+        .dropdown-input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+            font-size: 16px;
+        }
+        .dropdown-list {
+            position: absolute;
+            z-index: 1000;
+            width: 100%;
+            max-height: 200px;
+            overflow-y: auto;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            border-top: none;
+            border-radius: 0 0 4px 4px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            display: none;
+        }
+        .dropdown-list-item {
+            padding: 10px;
+            cursor: pointer;
+        }
+        .dropdown-list-item:hover {
+            background-color: #f2f2f2;
+        }
+    </style>
+
 <form action="/tasks/add" method="POST">
 <div class="card">
     <div class="card-header">
@@ -7,13 +44,7 @@
         <div class="row">
             <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 mb-1">
                 <labell for="cuadrilla">Ingrese cuadrilla</labell>
-                <input class="form-control" type="text" name="cuadrilla" placeholder="Ingrese el código de cuadrilla">
-                {{!-- <select class="form-control" name="cuadrilla">
-                    <option>seleccione</option>
-                 {{#each cuadrillas}}
-                    <option >{{cuadrilla}}</option>
-                   {{/each}}
-                </select> --}}
+                <input class="form-control" required type="text" name="cuadrilla" placeholder="Ingrese el código de cuadrilla">
             </div>
             <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 mb-1">
                 <labell for="cuadrilla">Quién ingresa la información</labell>
@@ -22,12 +53,6 @@
             <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 mb-1">
                 <labell for="cuadrilla">Ingrese el sitio</labell>
                 <input class="form-control" type="text" name="sitio" placeholder="Ingrese el nombre del sitio">
-                {{!-- <select class="form-control" name="sitio">
-                    <option>seleccione</option>
-                           {{#each sitios}}
-                    <option >{{sitio}}</option>
-                   {{/each}}
-                </select> --}}
             </div>
             <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 mb-1">
                 <labell for="cuadrilla">Ingrese RDA</labell>
@@ -42,7 +67,7 @@
     </div>
     <div class="card-body">
         <div class="row">
-            <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+            {{!-- <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
                 <label for="insumos">Seleccione un insumo:</label>
                 <select name="insumos" id="insumos" class="form-control">
                     <option>seleccione</option>
@@ -50,6 +75,18 @@
                     <option value="{{codigo}}-{{insumo}}">{{codigo}}-{{insumo}}</option>
                     {{/each}}
                 </select>
+            </div> --}}
+            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                <label for="insumos">Seleccione un insumo:</label>
+                <div class="dropdown">
+                    <input id="insumos-input" class="dropdown-input form-control" type="text" placeholder="Buscar insumo...">
+                    <ul id="insumos-list" class="dropdown-list">
+                        {{#each insumosI}}
+                            <li class="dropdown-list-item" data-id="{{codigo}}-{{insumo}}">{{codigo}}-{{insumo}}</li>
+                        {{/each}}
+                    </ul>
+                </div>
+                <input type="hidden" id="insumos" name="insumos">
             </div>
             <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
                 <label for="insumos">Seleccione la cantidad:</label>
@@ -69,13 +106,15 @@
                    {{/each}}
                 </select>
             </div>
+                
             <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
                 <label for="cuadrilla"></label>
                 <button type="button" id="add-inputs-btn" class="btn btn-primary mt-4">Agregar insumo</button>
             </div>
         </div>
+        <p>Listado de insumos agregados</p>
         <div class="row mt-3"  id="inputs-container">   
-<p>Listado de insumos agregados</p>
+
         </div>
     </div>
 </div>
@@ -83,96 +122,68 @@
 </form>
 
 <!-- --------------------------------------BOOTSTRAP JS----------------------------------------------------------- -->
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
 
-
-<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.js"></script>
-
-<script src="https://cdn.datatables.net/buttons/1.6.2/js/dataTables.buttons.min.js"></script>
-<script src="https://cdn.datatables.net/buttons/1.6.2/js/buttons.bootstrap4.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
-<script src="https://cdn.datatables.net/buttons/1.6.2/js/buttons.html5.min.js"></script>
-<script src="https://cdn.datatables.net/buttons/1.6.2/js/buttons.print.min.js"></script>
-<script src="https://cdn.datatables.net/buttons/1.6.2/js/buttons.colVis.min.js"></script>
+<!-- index.hbs -->
 
 <script>
-  $(document).ready(function () {
-      $('#table_id').DataTable({
-          "language": {
-              "lengthMenu": "Mostrar _MENU_ registros por página",
-              "zeroRecords": "Datos no encontrados",
-              "info": "Mostrando Página _PAGE_ de _PAGES_",
-              "infoEmpty": "No hay registros disponibles",
-              "infoFiltered": "(Filtrado de _MAX_ registros totales)",
-              "search": "Buscar",
-              "sInfoThousands": ",",
-              "sLoadingRecords": "Cargando...",
-              "oPaginate": {
-                  "sFirst": "Primero",
-                  "sLast": "Último",
-                  "sNext": "Siguiente",
-                  "sPrevious": "Anterior"
-              },
-          },
-          "dom": 'Bfrtip',
-          //para que muestre el length menu                 "dom": 'Blfrtip',
-          "buttons": [
-              {
-                  extend: 'excel',
-                  className: 'btn btn-default rounded-0',
-                  text: '<i class="far fa-file-excel"></i> Exportar a excel',
-                  title: 'Planilla Semanal equipo de arrastre',
-                  exportOptions: {
-                      columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
-                  }
-              },
-              {
-                  extend: 'pdf',
-                  className: 'btn btn-default rounded-0',
-                  text: '<i class="far fa-file-pdf" title= "Guardar como PDF"></i> Pdf',
-                  title: 'Planilla Semanal equipo de arrastre',
-                  orientation: 'landscape',
-                  pageSize: 'LEGAL',
-                  exportOptions: {
-                      columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-                  }
-              },
-              {
-                  extend: 'csv',
-                  className: 'btn btn-default rounded-0',
-                  text: '<i class="fas fa-file-csv" title= "Guardar como CSV"></i> CSV',
-                  title: 'Planilla Semanal equipo de arrastre',
-                  exportOptions: {
-                      columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-                  }
-              },
-              {
-                  extend: 'print',
-                  className: 'btn btn-default rounded-0',
-                  text: '<i class="fas fa-print"></i> Imprimir tabla',
-                  title: 'Planilla Semanal equipo de arrastre',
-                  exportOptions: {
-                      columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-                  }
-              }
-          ]
-      });
-  });
+        document.addEventListener('DOMContentLoaded', function() {
+            // Filtrado de insumos al escribir en el input
+            const insumosInput = document.getElementById('insumos-input');
+            const insumosList = document.getElementById('insumos-list');
+            const insumoSeleccionadoInput = document.getElementById('insumos');
 
-  $( document ).ready(function() {
-    $( ".btn_izq" ).click(function() {
-        $('#bloque_enlaces').toggle(); 
-    });
-});
+            insumosInput.addEventListener('input', function() {
+                const filterValue = this.value.toUpperCase();
+                const listItems = insumosList.getElementsByTagName('li');
 
+                for (let i = 0; i < listItems.length; i++) {
+                    let itemText = listItems[i].textContent || listItems[i].innerText;
+                    if (itemText.toUpperCase().indexOf(filterValue) > -1) {
+                        listItems[i].style.display = '';
+                    } else {
+                        listItems[i].style.display = 'none';
+                    }
+                }
+            });
+
+            // Manejo de selección de insumo desde la lista
+            insumosList.addEventListener('click', function(event) {
+                const target = event.target;
+                if (target.tagName === 'LI') {
+                    const insumoId = target.getAttribute('data-id');
+                    const insumoNombre = target.textContent || target.innerText;
+
+                    insumosInput.value = insumoNombre;
+                    insumoSeleccionadoInput.value = insumoId;
+
+                    // Ocultar la lista desplegable después de seleccionar
+                    insumosList.style.display = 'none';
+                }
+            });
+
+            // Mostrar lista desplegable al enfocar el input
+            insumosInput.addEventListener('focus', function() {
+                insumosList.style.display = 'block';
+            });
+
+            // Ocultar lista desplegable al hacer clic fuera de ella
+            document.addEventListener('click', function(event) {
+                if (!insumosInput.contains(event.target)) {
+                    insumosList.style.display = 'none';
+                }
+            });
+        });
+    </script>
+
+
+
+<script>
 
 document.addEventListener('DOMContentLoaded', function() {
     const addInputsBtn = document.getElementById('add-inputs-btn');
     const inputsContainer = document.getElementById('inputs-container');
-    const insumosDropdown = document.getElementById('insumos');
+    //const insumosDropdown = document.getElementById('insumos');
+    const insumoSeleccionadoInput = document.getElementById('insumos');
     const unidadDropdown = document.getElementById('unidad');
     const cantidadDropdown = document.getElementById('cantidad');
     const form = document.querySelector('form');
@@ -181,7 +192,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
     addInputsBtn.addEventListener('click', function() {
         // Obtener valores seleccionados de los dropdowns
-        const insumoSeleccionado = insumosDropdown.value;
+        //const insumoSeleccionado = insumosDropdown.value;
+        const insumoSeleccionado = insumoSeleccionadoInput.value;
         const unidadSeleccionada = unidadDropdown.value;
         const cantidadSeleccionada = cantidadDropdown.value;
 
