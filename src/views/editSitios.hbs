@@ -1,0 +1,15 @@
+
+<div class="card">
+    <div class="card-header">
+        Modificar sitio ingresado 
+    </div>
+    <div class="card-body">
+        <form action="/edit-sitios/{{sitio._id}}" method="POST">
+            <labell for="cuadrilla">Ingrese código</labell>
+            <input type="text" class="form-control mb-2" name="identificador" value="{{sitio.identificador}}" placeholder="código del sitio">
+            <labell for="cuadrilla">Ingrese nombre del sitio</labell>
+            <input type="text" class="form-control mb-2" name="sitio" value="{{sitio.sitio}}" placeholder="sitio">
+            <button class="btn btn-primary">Guardar</button>
+        </form>
+    </div>
+</div>

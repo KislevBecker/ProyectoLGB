@@ -1,0 +1,41 @@
+<div class="card">
+    <div class="card-header">
+        <h1>Agregar cuadrilla</h1>
+    </div>
+    <div class="card-body">
+        <form action="/cuadrillas/add" method="POST">
+            <labell for="cuadrilla">Ingrese código de la cuadrilla</labell>
+            <input type="text" class="form-control mb-2" name="cuadrilla" value="{{cuadrilla.cuadrilla}}" placeholder="código de la cuadrilla">
+            <button class="btn btn-primary mt-2">Guardar</button>
+        </form>
+    </div>
+</div>
+<div class="card">
+    <div class="card-header">
+        <h1>Cuadrillas creadas</h1>
+    </div>
+    <div class="card-body">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>N°</th>
+                    <th>Cuadrilla</th> 
+                    {{!-- <th></th>
+                    <th></th> --}}
+                </tr>
+            </thead>
+            <tbody>
+               {{#each cuadrillas}}
+               <tr>
+                <td>{{@index}}</td>
+                <td>{{cuadrilla}}</td>
+                {{!-- <td><a class="btn btn-primary" href="/edit-cuadrillas/{{_id}}">Editar</a></td>
+                <td><form action="/delete-cuadrillas/{{_id}}" method="POST" style="display: inline;">
+                        <button type="submit" class="btn btn-danger">Eliminar</button>
+                    </form></td> --}}
+               </tr>
+               {{/each}}
+            </tbody>
+        </table>
+    </div>
+</div>

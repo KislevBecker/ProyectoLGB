@@ -1,5 +1,12 @@
-{{!-- <form action="/edit-cuadrilla/{{._id}}" method="POST">
-    <labell for="cuadrilla">Seleccione cuadrilla</labell>
-    <input type="text" name="cuadrilla" value="{{cuadrilla.cuadrilla}}" placeholder="cuadrilla">
-    <button>Guardar</button>
-</form> --}}
+<div class="card">
+    <div class="card-header">
+        Modificar cuadrilla ingresada
+    </div>
+    <div class="card-body">
+        <form action="/edit-cuadrilla/{{cuadrilla._id}}" method="POST">
+    <labell for="cuadrilla">Ingrese código de la cuadrilla</labell>
+    <input type="text" class="form-control" name="cuadrilla" value="{{cuadrilla.cuadrilla}}" placeholder="cuadrilla">
+    <button class="btn btn-primary mt-2">Guardar</button>
+</form>
+    </div>
+</div>

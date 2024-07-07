@@ -1,0 +1,15 @@
+
+<div class="card">
+    <div class="card-header">
+        Modificar insumo ingresado 
+    </div>
+    <div class="card-body">
+        <form action="/edit-insumos/{{insumo._id}}" method="POST">
+            <labell for="cuadrilla">Ingrese código</labell>
+            <input type="text" class="form-control mb-2" name="codigo" value="{{insumo.codigo}}" placeholder="código de insumo">
+            <labell for="cuadrilla">Ingrese descripción</labell>
+            <input type="text" class="form-control mb-2" name="insumo" value="{{insumo.insumo}}" placeholder="insumo">
+            <button class="btn btn-primary">Guardar</button>
+        </form>
+    </div>
+</div>

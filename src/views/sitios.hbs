@@ -4,9 +4,11 @@
     </div>
     <div class="card-body">
         <form action="/sitios/add" method="POST">
-            <labell for="cuadrilla">Ingrese sitio</labell>
-            <input type="text" name="sitio" class="form-control" value="{{sitio.sitio}}" placeholder="sitio">
-            <button>Guardar</button>
+            <labell for="cuadrilla">Ingrese código</labell>
+            <input type="text" class="form-control mb-2" name="codigo" value="{{sitio.identificador}}" placeholder="código del sitio">
+            <labell for="cuadrilla">Ingrese nombre del sitio</labell>
+            <input type="text" class="form-control mb-2" name="sitio" value="{{sitio.sitio}}" placeholder="sitio">
+            <button class="btn btn-primary mt-2">Guardar</button>
         </form>
     </div>
 </div>
@@ -19,16 +21,22 @@
             <thead>
                 <tr>
                     <th>N°</th>
-                    <th>Sitios</th>
-                    {{!-- <th></th> --}}
+                    <th>Código del sitio</th>        
+                    <th>Sitio</th>
+                    <th></th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody>
                {{#each sitios}}
                <tr>
                 <td>{{@index}}</td>
+                <td>{{identificador}}</td>
                 <td>{{sitio}}</td>
-                {{!-- <td><a href="/edit-cuadrilla/{{_id}}">Editar</a></td> --}}
+                <td><a class="btn btn-primary" href="/edit-sitios/{{_id}}">Editar</a></td>
+                <td><form action="/delete-sitios/{{_id}}" method="POST" style="display: inline;">
+                        <button type="submit" class="btn btn-danger">Eliminar</button>
+                    </form></td>
                </tr>
                {{/each}}
             </tbody>

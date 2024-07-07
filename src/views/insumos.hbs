@@ -6,7 +6,7 @@
         <form action="/insumos/add" method="POST">
             <labell for="cuadrilla">Ingrese código</labell>
             <input type="text" class="form-control mb-2" name="codigo" value="{{codigoInsumo.codigoInsumo}}" placeholder="código de insumo">
-            <labell for="cuadrilla">Ingrese descripcion</labell>
+            <labell for="cuadrilla">Ingrese descripción</labell>
             <input type="text" class="form-control mb-2" name="insumo" value="{{codigoInsumo.codigoInsumo}}" placeholder="insumo">
 
             <button class="btn btn-primary">Guardar</button>
@@ -24,7 +24,8 @@
                     <th>N°</th>
                     <th>Código</th>
                     <th>Insumos</th>
-                    {{!-- <th></th> --}}
+                    <th></th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody>
@@ -33,7 +34,10 @@
                 <td>{{@index}}</td>
                 <td>{{codigo}}</td>
                 <td>{{insumo}}</td>
-                {{!-- <td><a href="/edit-cuadrilla/{{_id}}">Editar</a></td> --}}
+                <td><a class="btn btn-primary" href="/edit-insumos/{{_id}}">Editar</a></td>
+                <td><form action="/delete-insumos/{{_id}}" method="POST" style="display: inline;">
+                        <button type="submit" class="btn btn-danger">Eliminar</button>
+                    </form></td>
                </tr>
                {{/each}}
             </tbody>
