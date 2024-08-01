@@ -1,15 +1,13 @@
 import { Schema, model } from "mongoose";
 
-const insumosSchema = new Schema(
+const insumosASchema = new Schema(
   {
-      //identificador:String,
       codigo: String,
       unidad: String,
       insumo: {
         type: String,
         required: true,
         trim: true
-        //unique : true si lo quiero unico
     },
   },
   { timestamps: true, versionKey:false }
@@ -17,5 +15,5 @@ const insumosSchema = new Schema(
 
 
 
-export default model('Insumos', insumosSchema)
+export default model('InsumosActualizado', insumosASchema)
 

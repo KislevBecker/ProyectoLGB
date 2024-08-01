@@ -3,13 +3,13 @@
         <h1>Ingreso de insumos</h1>
     </div>
     <div class="card-body">
-        <form action="/insumos/add" method="POST">
-            <labell for="cuadrilla">Ingrese código</labell>
-            <input type="text" class="form-control mb-2" name="codigo" value="{{codigoInsumo.codigoInsumo}}" placeholder="código de insumo">
-            <labell for="cuadrilla">Ingrese descripción</labell>
-            <input type="text" class="form-control mb-2" name="insumo" value="{{codigoInsumo.codigoInsumo}}" placeholder="insumo">
-            <labell for="cuadrilla">Ingrese unidad</labell>
-            <input type="text" class="form-control mb-2" name="unidad" value="{{codigoInsumo.codigoInsumo}}" placeholder="unidad">
+        <form action="/insumosA/add" method="POST">
+            <label for="cuadrilla">Ingrese código</label>
+            <input type="text" class="form-control mb-2" name="codigo" value="{{codigo}}" placeholder="código de insumo">
+            <label for="cuadrilla">Ingrese descripción</label>
+            <input type="text" class="form-control mb-2" name="insumo" value="{{insumo}}" placeholder="insumo">
+            <label for="cuadrilla">Ingrese unidad</label>
+            <input type="text" class="form-control mb-2" name="unidad" value="{{unidad}}" placeholder="unidad">
             <button class="btn btn-primary">Guardar</button>
         </form>
     </div>
@@ -30,13 +30,14 @@
                 </tr>
             </thead>
             <tbody>
-               {{#each insumos}}
+               {{#each insumosA}}
                <tr>
                 <td>{{@index}}</td>
                 <td>{{codigo}}</td>
                 <td>{{insumo}}</td>
-                <td><a class="btn btn-primary" href="/edit-insumos/{{_id}}">Editar</a></td>
-                <td><form action="/delete-insumos/{{_id}}" method="POST" style="display: inline;">
+                <td>{{unidad}}</td>
+                <td><a class="btn btn-primary" href="/edit-insumosA/{{_id}}">Editar</a></td>
+                <td><form action="/delete-insumosA/{{_id}}" method="POST" style="display: inline;">
                         <button type="submit" class="btn btn-danger">Eliminar</button>
                     </form></td>
                </tr>

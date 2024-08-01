@@ -1,13 +1,21 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light">
   <a class="navbar-brand" href="/">COPESA</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
-  <div class="collapse navbar-collapse" id="navbarNav">
+ <div class="collapse navbar-collapse" id="navbarNav">
     <ul class="navbar-nav">
-      <li class="nav-item active">
-        <a class="nav-link" href="/">Inicio</a>
-      </li>
+      <div class="dropdown">
+      <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink2" data-bs-toggle="dropdown" aria-expanded="false">
+        Ingresar insumos a reportar
+      </a>
+
+      <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink2">
+        <li><a class="dropdown-item" href="/2">Ingreso de insumos consumidos</a></li>
+        <li><a class="dropdown-item" href="/3">Ingreso de insumos trasladados</a></li>
+        <li><a class="dropdown-item" href="/4">Ingreso de insumos retirados</a></li>
+      </ul>
+    </div>
       <li class="nav-item">
         <a class="nav-link" href="/cuadrillas">Cuadrillas</a>
       </li>
@@ -15,11 +23,19 @@
         <a class="nav-link" href="/sitios">Sitios</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="/insumos">Insumos</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="/tasks">Generar reportes</a>
+        <a class="nav-link" href="/insumosA">Insumos</a>
       </li>
     </ul>
+    <div class="dropdown">
+      <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+        Generar reportes
+      </a>
+
+      <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+        <li><a class="dropdown-item" href="/reporteConsumidos">Reporte de consumidos</a></li>
+        <li><a class="dropdown-item" href="/reporteTraslados">Reporte de traslados</a></li>
+        <li><a class="dropdown-item" href="/reporteRetiros">Reporte de retiros</a></li>
+      </ul>
+    </div>
   </div>
 </nav>

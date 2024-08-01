@@ -1,0 +1,39 @@
+<div class="card mb-5">
+    <div class="card-header">
+        <h1>Registros de insumos retirados</h1>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table id="miTabla" class="table table-striped display" style="width:100%">
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Fecha de retiro</th>
+                        <th>Sede retiro</th>
+                        <th>Empleado entrega</th>
+                        <th>Empleado recibe</th>
+                        <th>Cuadrilla</th>
+                        <th>Insumos</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#each retiros}}
+                    <tr>
+                        <td>{{@index}}</td>
+                        <td>{{ fechaRetiro }}</td>
+                        <td>{{ sedeRetiro }}</td>
+                        <td>{{ empleadoEntrega }}</td>
+                        <td>{{ empleadoRecibe }}</td>
+                        <td>{{ cuadrilla }}</td>
+                        <td>
+                                {{#each producto}}
+                                    {{this.insumo}} - {{this.cantidad}} <br> <!-- Acceder a propiedades específicas del objeto producto -->
+                                {{/each}}
+                            </td>
+                    </tr>
+                    {{/each}}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
